@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Painting } from "@/data/paintings";
+import { useLanguage } from "@/context/LanguageContext";
+import t from "@/i18n/translations";
 import styles from "./PaintingCard.module.css";
 
 interface PaintingCardProps {
@@ -12,6 +14,12 @@ interface PaintingCardProps {
 export default function PaintingCard({ painting }: PaintingCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const { lang } = useLanguage();
+
+  const backstory =
+    lang === "ja" && painting.backstoryJa
+      ? painting.backstoryJa
+      : painting.backstory;
 
   return (
     <article
@@ -44,12 +52,14 @@ export default function PaintingCard({ painting }: PaintingCardProps) {
           <span className={styles.year}>{painting.year}</span>
         </p>
 
-        <div className={`${styles.backstory} ${expanded ? styles.backstoryVisible : ""}`}>
-          <p>{painting.backstory}</p>
+        <div
+          className={`${styles.backstory} ${expanded ? styles.backstoryVisible : ""}`}
+        >
+          <p>{backstory}</p>
         </div>
 
         <button className={styles.readMore} aria-label="Toggle backstory">
-          {expanded ? "Hide story ↑" : "Read story ↓"}
+          {expanded ? t.hideStory[lang] : t.readStory[lang]}
         </button>
       </div>
     </article>

@@ -97,3 +97,34 @@
     padding: 0.45rem 0.75rem;
   }
 }
+
+/* ── Language toggle ──────────────────────────────────────────────────── */
+.langToggle {
+  background: none;
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.45rem 0.9rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+.langToggle:hover {
+  color: #e8d5b7;
+  border-color: rgba(201, 169, 110, 0.7);
+  background: rgba(201, 169, 110, 0.1);
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.2);
+}
+
+@media (max-width: 900px) {
+  .langToggle {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+  }
+}

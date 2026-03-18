@@ -4,23 +4,13 @@ import { useState, useMemo } from "react";
 import NavBar from "@/components/NavBar";
 import PaintingCard from "@/components/PaintingCard";
 import { paintings, eras, Era } from "@/data/paintings";
+import { useLanguage } from "@/context/LanguageContext";
+import t from "@/i18n/translations";
 import styles from "./page.module.css";
-
-const eraDescriptions: Record<Era, string> = {
-  Renaissance:
-    "A cultural rebirth (14th–17th c.) that rediscovered classical antiquity, pioneering perspective, humanism, and the notion of the artist as genius.",
-  Baroque:
-    "A dramatic, emotionally charged style (17th–early 18th c.) of contrasting light and shadow, grand movement, and theatrical intensity.",
-  Romanticism:
-    "A 19th-century movement that prized emotion, imagination, nature's power, and the individual spirit over Enlightenment rationalism.",
-  Impressionism:
-    "Late 19th-century artists who abandoned studio conventions, painting outdoors to capture fleeting light, colour, and everyday life.",
-  Modern:
-    "A sweeping 20th-century wave of movements—Cubism, Surrealism, Abstract Expressionism—that shattered centuries of artistic convention.",
-};
 
 export default function Home() {
   const [activeEra, setActiveEra] = useState<Era | "All">("All");
+  const { lang } = useLanguage();
 
   const filtered = useMemo(
     () =>
@@ -38,30 +28,33 @@ export default function Home() {
         {/* Hero */}
         <section className={styles.hero}>
           <div className={styles.heroGlow} />
-          <p className={styles.heroEyebrow}>Public Domain Collection</p>
+          <p className={styles.heroEyebrow}>{t.heroEyebrow[lang]}</p>
           <h1 className={styles.heroTitle}>
-            A Journey Through
+            {t.heroTitle1[lang]}
             <br />
-            <span className={styles.heroAccent}>Art History</span>
+            <span className={styles.heroAccent}>{t.heroAccent[lang]}</span>
           </h1>
-          <p className={styles.heroSub}>
-            Navigate the eras above and explore masterpieces spanning six
-            centuries — each painting with the story behind it.
-          </p>
+          <p className={styles.heroSub}>{t.heroSub[lang]}</p>
           <div className={styles.heroStats}>
-            <span>{paintings.length} masterpieces</span>
+            <span>
+              {paintings.length} {t.statMasterpieces[lang]}
+            </span>
             <span className={styles.dot}>·</span>
-            <span>{eras.length} eras</span>
+            <span>
+              {eras.length} {t.statEras[lang]}
+            </span>
             <span className={styles.dot}>·</span>
-            <span>All public domain</span>
+            <span>{t.statPublicDomain[lang]}</span>
           </div>
         </section>
 
         {/* Era description */}
         {activeEra !== "All" && (
           <section className={styles.eraHeader}>
-            <h2 className={styles.eraTitle}>{activeEra}</h2>
-            <p className={styles.eraDesc}>{eraDescriptions[activeEra]}</p>
+            <h2 className={styles.eraTitle}>{t.eras[activeEra][lang]}</h2>
+            <p className={styles.eraDesc}>
+              {t.eraDescriptions[activeEra][lang]}
+            </p>
           </section>
         )}
 
@@ -74,7 +67,7 @@ export default function Home() {
 
         <footer className={styles.footer}>
           <p>
-            All images sourced from{" "}
+            {t.footerPrefix[lang]}{" "}
             <a
               href="https://commons.wikimedia.org"
               target="_blank"
@@ -82,7 +75,7 @@ export default function Home() {
             >
               Wikimedia Commons
             </a>{" "}
-            — public domain worldwide.
+            {t.footerSuffix[lang]}
           </p>
         </footer>
       </main>
